@@ -7,8 +7,15 @@ class TeamsController < ApplicationController
   end
 
   def show
+    if params[:leader]
+    @team.owner=nil
+    @user=User.find(params[:id])
+    @team.owner=@user
+    @team.update(team_params)
+    else
     @working_team = @team
     change_keep_team(current_user, @team)
+    end
   end
 
   def new
@@ -28,6 +35,10 @@ class TeamsController < ApplicationController
       render :new
     end
   end
+
+ def transfer_authority
+ 
+end
 
   def update
     if @team.update(team_params)
@@ -54,6 +65,6 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id]
+    params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id leader]
   end
 end

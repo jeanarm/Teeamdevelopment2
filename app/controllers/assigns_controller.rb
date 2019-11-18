@@ -13,12 +13,15 @@ class AssignsController < ApplicationController
   end
 
   def destroy
+    
     assign = Assign.find(params[:id])
     destroy_message = assign_destroy(assign, assign.user)
 
     redirect_to team_url(params[:team_id]), notice: destroy_message
-  end
+  else
+    redirect_to teams_url, notice:"you cant delete a member"
 
+end
   private
 
   def assign_params

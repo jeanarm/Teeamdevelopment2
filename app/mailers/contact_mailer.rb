@@ -4,4 +4,7 @@ class ContactMailer < ApplicationMailer
         mail to: "example@gmail.com",  suject: "Agenda deleted"
 
     end
+
+   
+
 end

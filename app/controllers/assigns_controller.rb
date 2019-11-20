@@ -13,13 +13,17 @@ class AssignsController < ApplicationController
   end
 
   def destroy
-    
     assign = Assign.find(params[:id])
-    destroy_message = assign_destroy(assign, assign.user)
+    # destroy_message = assign_destroy(assign, assign.user)
 
-    redirect_to team_url(params[:team_id]), notice: destroy_message
+    # redirect_to team_url(params[:team_id]), notice: destroy_message
+if current_user.id == assign.team.owner || current_user.id != assign.user_id
+    assign.destroy
+    AssignMailer.assign_mail(assign.user.email, assign.user.password)
+    redirect_to dashboard_url, notice:" user deleted successfully"
   else
-    redirect_to teams_url, notice:"you cant delete a member"
+    redirect_to dashboard_url, notice:"logged user and owner can not be deleted"
+  end
 
 end
   private
@@ -28,18 +32,20 @@ end
     params[:email]
   end
 
-  def assign_destroy(assign, assigned_user)
-    if assigned_user == assign.team.owner
-      I18n.t('views.messages.cannot_delete_the_leader')
-    elsif Assign.where(user_id: assigned_user.id).count == 1
-      I18n.t('views.messages.cannot_delete_only_a_member')
-    elsif assign.destroy
-      set_next_team(assign, assigned_user)
-      I18n.t('views.messages.delete_member')
-    else
-      I18n.t('views.messages.cannot_delete_member_4_some_reason')
-    end
-  end
+  # def assign_destroy(assign, assigned_user)
+    
+  #   if assigned_user == assign.team.owner
+  #     I18n.t('views.messages.cannot_delete_the_leader')
+  #   # elsif Assign.where(user_id: assigned_user.id).count == 1
+  #   #   I18n.t('views.messages.cannot_delete_only_a_member')
+  #   elsif current_user.id != assign.team.owner
+  #   elsif assign.destroy
+  #     set_next_team(assign, assigned_user)
+  #     I18n.t('views.messages.delete_member')
+  #   else
+  #     I18n.t('views.messages.cannot_delete_member_4_some_reason')
+  #   end
+  # end
   
   def email_reliable?(address)
     address.match(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)

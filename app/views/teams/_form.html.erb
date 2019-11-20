@@ -24,7 +24,6 @@
     <%= form.file_field :icon %>
     <%= form.hidden_field :icon_cache %>
   </div>
-
   <% if current_user.id == @team.owner_id%>
   <div class="form-group">
   <%= form.label :make_team_leader %><br>
@@ -36,6 +35,7 @@
     <%= form.hidden_field :owner_id, value: current_user.id %>
     <%= form.submit I18n.t('views.button.create'), class: 'btn btn-primary' %>
   </div>
+
  <% end %>
  <% end %>
  

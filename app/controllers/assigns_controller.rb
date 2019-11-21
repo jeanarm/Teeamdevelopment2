@@ -18,7 +18,7 @@ class AssignsController < ApplicationController
     # redirect_to team_url(params[:team_id]), notice: destroy_message
 if current_user.id == assign.team.owner || current_user.id == assign.user_id
     assign.destroy
-    AssignMailer.assign_mail(assign.user.email, assign.user.password)
+    AssignMailer.assign_mail(assign.user.email, assign.user.password).deliver
     redirect_to dashboard_url, notice:" user deleted successfully"
   else
     redirect_to dashboard_url, notice:"logged user and owner can not be deleted"

@@ -15,9 +15,8 @@ class AssignsController < ApplicationController
   def destroy
     assign = Assign.find(params[:id])
     # destroy_message = assign_destroy(assign, assign.user)
-
     # redirect_to team_url(params[:team_id]), notice: destroy_message
-if current_user.id == assign.team.owner || current_user.id != assign.user_id
+if current_user.id == assign.team.owner || current_user.id == assign.user_id
     assign.destroy
     AssignMailer.assign_mail(assign.user.email, assign.user.password)
     redirect_to dashboard_url, notice:" user deleted successfully"

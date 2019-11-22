@@ -41,12 +41,18 @@ class TeamsController < ApplicationController
 end
 
   def update
-    if current_user.id == @team.owner_id
-      @team.update(team_params)
-      redirect_to @team, notice: I18n.t('views.messages.update_team')
-    else
-      redirect_to @team, notice:"only the owner of the team can edit"
-    end
+    if params[:owner_id]
+      @team.update(owner_id: params[:owner_id])
+      @team.assigns.each do |assign|  
+        AssignMailer.assign_mail(assign.user.email,assign.user.password).deliver
+        end
+      redirect_to @team, notice: 'leader changed'
+    elsif @team.update(team_params)
+        redirect_to @team, notice: I18n.t('views.messages.update_team')
+      else
+        flash.now[:error] = I18n.t('views.messages.failed_to_save_team')
+        render :edit
+      end
   end
 
   def destroy

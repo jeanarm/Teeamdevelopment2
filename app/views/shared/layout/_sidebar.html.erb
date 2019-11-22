@@ -30,8 +30,6 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <% @working_team.agendas.each do |agenda| %>
           <li class="nav-item has-treeview menu-open">
-         
-    
             <div class="d-inline p-2 text-white">
             <i class="fa fa-circle-o nav-icon "></i><span  style="margin-right: 2rem;"><%= agenda.title %></span>
             <%= link_to 'Delete', agenda, method: :delete, data: { confirm: 'Are you sure?'}, class:"btn btn-danger" %>

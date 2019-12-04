@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <!-- The following description imports Vue.js -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+    <body>
+
+        <div id="app" class="container">
+            <!-- In v-model="name", the date set in Vue.js is synchronized with the HTML input element -->
+            
+            <div class="card"style="background-color: pink;" >
+            <h1 style="color: green; text-align: center">New Student</h1>
+                <div class="card-body">
+
+                    Name<input v-model="name" class="form-control " >
+                    Course:<input v-model="course" class="form-control " >
+                    Duration of study:<input v-model="acceptancePeriod " class="form-control" >
+                    <br> <br>
+                    <button v-on:click="addStudent" class="btn btn-success">Add the student you entered</button>
+                    <button v-on:click="removeLast" class="btn btn-danger">Remove Last Student</button>
+                </div>
+                
+              </div>
+        
+            <br>
+            <!-- select the method to be activated when the button is clicked with button v-on: click = "addStudent",  -->
+            
+            <h1 style="color: green; text-align: center">Students List</h1>
+                <table  class="table table-hover mt-5">
+                  <thead style="color: green">
+                    <tr>
+                      <th>ID</th>
+                      <th>NAME</th>
+                      <th>COURSE</th>
+                      <th>DURATION OF STUDY</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="student in students" v-bind:key="student.id">
+                      <td>{{student.id}}</td>
+                      <td>{{student.name}}</td>
+                      <td>{{student.course}}</td>
+                      <td>{{student.acceptancePeriod}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+        </div>
+        <script src="sample.js"></script>
+    </body>
+</html>

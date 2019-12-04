@@ -1,0 +1,15 @@
+html, body {
+    margin: 5px;
+    padding: 0;
+}
+.card{
+    margin-right: 250px;
+    margin-left: 250px;
+    
+   
+}
+.btn btn-success{
+  
+    margin-left:250px;
+   
+}

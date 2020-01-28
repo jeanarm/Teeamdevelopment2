@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var user = {};
+            $('#btnlogin').click(function() {
+                user.name = $('#name').val();
+                user.email = $('#email').val();
+                var userJSON = JSON.stringify(user);
+                $.ajax({
+                    url: 'http://localhost:3000/signin',
+                    method: 'POST',
+                    data: userJSON,
+                    contentType: "application/json; charset=utf-8",
+                    success: function() {
+                        alert('logged in successfully!');
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                })
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <table border="1" style="border-collapse:collapse">
+
+        <td>Email</td>
+        <td><input id="email" type="email" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input id="password" type="password" /></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="button" id="btnlogin" value="Login" />
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

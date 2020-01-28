@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var customer = {};
+            $('#btnAddCustomer').click(function() {
+                customer.name = $('#name').val();
+                customer.phone = $('#phone').val();
+                customer.address = $('#address').val();
+                var customerJSON = JSON.stringify(customer);
+                $.ajax({
+                    url: 'http://localhost:3000/api/v1/customers',
+                    method: 'POST',
+                    data: customerJSON,
+                    contentType: "application/json; charset=utf-8",
+                    success: function() {
+                        alert('Saved successfully!');
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                })
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <table border="1" style="border-collapse:collapse" class="table">
+        <tr>
+            <td>Name</td>
+            <td><input id="name" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td><input id="phone" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><input id="address" type="text" /></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="button" id="btnAddCustomer" value="Add Customer" />
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

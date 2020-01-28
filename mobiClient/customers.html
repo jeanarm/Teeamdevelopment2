@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            getCustomers();
+
+        });
+
+        function getCustomers() {
+            $.ajax({
+                url: 'http://localhost:3000/api/v1/customers',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var tableBody = $('#tabledata tbody');
+                    tableBody.empty();
+                    $(data).each(function(index, element) {
+                        tableBody.append('<tr>');
+                        tableBody.append('<td>' + element.name + '</td>' + '<td>' + element.phone + '</td>' + '<td>' + element.address + '</td>', '');
+                    })
+                },
+                error: function(error) {
+                    alert(error);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <table id="tabledata" border="1" style="border-collapse:collapse">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+
+</html>
